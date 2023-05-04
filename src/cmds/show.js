@@ -8,5 +8,9 @@ module.exports = {
 			if(interaction.user.id !== adminId){ throw "fail";};
 			return troll.getWishes().serialise();
 		},
+		"replies": {
+			"success": "",
+			"fail": "Unable to show wishes"
+		}
 	}
 }

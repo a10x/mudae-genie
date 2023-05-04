@@ -6,21 +6,20 @@ const {grantProbability} = require("./../../config");
 class Troll{
 	constructor(channel){
 		this.previousTroll = new Date();
-		this.slashCommands = ["wa", "ha"];
-		this.normalCommands = ["$wa", "$ha"];
+		this.slashCommands = ["wa", "wx", "wg", "ha", "hx", "hg", "ma", "mg", "mx"];
+		this.normalCommands = ["$w", "$wa", "$wx", "$wg", "$h", "$ha", "$hx", "$hg", "$m", "$ma", "$mg", "$mx"];
 		this.channel = channel;
 
 		this.wishes = new Wishes();
 	}
 
-	async troll(channel){
+	async grant(character){
 		try{
-			let messageSent = await channel.send(populateEmbed(this.wishes.pickRandomChar()));
+			let messageSent = await this.channel.send(populateEmbed(character));
 			let response = await messageSent.awaitMessageComponent({time: 60000});
-			if(response.customId === "fakeClaim") await response.update({content: "get trolled 😝", components: [], embeds: []});
-			this.previousTroll = new Date();
+			if(response.customId === "fakeClaim") await response.update({content: "get trolled 😝", components: [], embeds: []});	
 		}catch(e){
-			console.log(":(");
+			console.log(":(");	
 		}
 	}
 
@@ -30,8 +29,11 @@ class Troll{
 		return false;
 	}
 
-	randomTroll(channel, message){
-		if(this.getRandomNumber() > 3000000/grantProbability && this.canTroll(message))this.troll(channel);
+	async randomTroll(message){
+		if(this.getRandomNumber() > 40000000/grantProbability && this.canTroll(message)){
+			await this.grant(this.wishes.pickRandomChar())
+			this.previousTroll = new Date();
+		}
 	}
 
 	getRandomNumber(){

@@ -25,14 +25,13 @@ client.on(Events.InteractionCreate, async interaction => {
 	if(!command) return;
 
 	try{
-		if(command.name === "show"){
-			let jsonData = await command.function(interaction, troll);
-			await interaction.reply({ content: codeBlock("json", JSON.stringify(JSON.parse(jsonData), null, 2)), ephemeral: true }); 
-		}else{
-			await command.function(interaction, troll);
-			await interaction.reply({ content: command.replies.success, ephemeral: true });
-		}
+		let output = await command.function(interaction, troll);
+		let reply = command.replies.success; 
+
+		if(command.name === "show") reply = codeBlock("json", JSON.stringify(JSON.parse(output), null, 2));
+		if(reply) await interaction.reply({ content: reply, ephemeral: true });
 	}catch(error){
+		console.log(error);
 		if(error === "fail") 
 			await interaction.reply({ content: command.replies.fail, ephemeral: true });
 
@@ -47,7 +46,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on(Events.MessageCreate, async message =>{
 	if(message.author.id === "432610292342587392") return;
 	if(message.channelId !== channelId) return;
-	troll.randomTroll(channel, message);
+	await troll.randomTroll(channel, message);
 });
 
 client.login(token);

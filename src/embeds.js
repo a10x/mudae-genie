@@ -17,7 +17,6 @@ const getButton = ()=>{
 	.setStyle(ButtonStyle.Secondary);
 
 	return new ActionRowBuilder().addComponents(claimButton);
-	
 }
 
 const populateEmbed = (wishedChar)=>{

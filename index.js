@@ -44,24 +44,10 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-
-client.on(Events.ShardError, error => {
-	console.error('A websocket connection encountered an error:', error);
-});
-
-process.on('unhandledRejection', error => {
-	console.error('Unhandled promise rejection:', error);
-});
-
 client.on(Events.MessageCreate, async message =>{
 	if(message.author.id === "432610292342587392") return;
 	if(message.channelId !== channelId) return;
-	//troll.randomTroll(channel, message);
-	//console.log(troll.getWishes().serialise());
-	//console.log(troll.getWishes().deserialise(troll.getWishes().serialise()));
-	//let a = await channel.messages.fetch("1103489793809203260");
-	//console.log(a.embeds[0].data);
-	//wishRetriever.retrieve(channel, "1103489793809203260");
+	troll.randomTroll(channel, message);
 });
 
 client.login(token);

@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 
-const {saveFilePath} = require("./../../config");
+const {saveFilePath, adminId} = require("./../../config");
 
 const loadSave = ()=>{
 	let jsonData = "";
@@ -17,7 +17,7 @@ module.exports = {
 		"name": "load",
 		"description": "Load wishes from a file",
 		"function": async (interaction, troll) => {
-			if(interaction.user.id !== "876108388994527242"){ throw "fail";}
+			if(interaction.user.id !== adminId){ throw "fail";}
 			let data = loadSave();
 			console.log(JSON.parse(data));
 			troll.getWishes().deserialise(data);

@@ -69,7 +69,7 @@ class Wishes{
 		let jsonData = JSON.parse(data);
 
 		for(let wish of jsonData.data){
-			this.addNewWish(new WishedChar(wish.name+"sd", wish.anime, wish.rank, wish.value, wish.url, wish.wishedBy));
+			this.addNewWish(new WishedChar(wish.name, wish.anime, wish.rank, wish.value, wish.url, wish.wishedBy));
 		}
 	}
 }

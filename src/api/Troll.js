@@ -1,5 +1,7 @@
 const {populateEmbed} = require("../embeds");
-const {WishedChar, Wishes} = require("./Wish");
+const {Wishes} = require("./Wish");
+
+const {grantProbability} = require("./../../config");
 
 class Troll{
 	constructor(channel){
@@ -9,11 +11,6 @@ class Troll{
 		this.channel = channel;
 
 		this.wishes = new Wishes();
-
-		let wished = new WishedChar("Nezuko Kamado", "Kimetsu no Yaiba", 5, 1083, "https://images-ext-1.discordapp.net/external/8oz2145tNLHqAztNwHrJYzFjJ8ty2rgGOOHCYP6ETek/https/imgur.com/DQf32DA.gif");
-		wished.addWishedBy("876108388994527242");
-
-		this.wishes.addNewWish(wished);
 	}
 
 	async troll(channel){
@@ -34,7 +31,7 @@ class Troll{
 	}
 
 	randomTroll(channel, message){
-		if(this.getRandomNumber() > 100 && this.canTroll(message))this.troll(channel);
+		if(this.getRandomNumber() > 3000000/grantProbability && this.canTroll(message))this.troll(channel);
 	}
 
 	getRandomNumber(){
